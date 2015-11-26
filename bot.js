@@ -56,13 +56,20 @@ bot.on('message', function(message) {
     writeInsult(message, message.new_chat_participant);
   }
 
-  // search for monkey island matches
+  // search for triggers
   if (message.text) {
+
+    // monkey island
     var monkey_island_match = monkey_island.search(message.text);
     if (monkey_island_match) {
       bot.sendMessage(message.chat.id, monkey_island_match, {'reply_to_message_id': message.message_id});
       return;
+
+    // mueter
+    } else if (message.text.search(/mue?tt?(er|i)/) != -1) {
+      bot.sendMessage(message.chat.id, 'HANI MUETTER GHÖRT?', {'reply_to_message_id': message.message_id});
     }
+
   }
 
   if (Math.random() * 30 > 1 || message.text && /@CoredumpFlameBot/.test(message.text)) {
